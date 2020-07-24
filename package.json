@@ -1,0 +1,24 @@
+{
+  "name": "badvemgmtsystem",
+  "version": "1.0.0",
+  "description": "Badve management System Desktop app",
+  "main": "main.js",
+  "dependencies": {
+    "electron": "^9.1.1",
+    "jquery": "^3.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adityakale3/bms.git"
+  },
+  "author": "Aditya Kale <adityakale3@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adityakale3/bms/issues"
+  },
+  "homepage": "https://github.com/adityakale3/bms#readme"
+}
