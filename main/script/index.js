@@ -2,12 +2,12 @@ var ping = require('jjg-ping');
 
 // Change theme
 function changeTheme(){
-        console.log(document.body.classList.contains('theme-dark'));
-        if(document.body.classList.contains('theme-dark')){
-            document.body.classList.remove("theme-dark");
-        }else{
-            document.body.classList.add("theme-dark");
-        }
+    console.log(document.body.classList.contains('theme-dark'));
+    if(document.body.classList.contains('theme-dark')){
+        document.body.classList.remove("theme-dark");
+    }else{
+        document.body.classList.add("theme-dark");
+    }
 }
 
 // Check internet

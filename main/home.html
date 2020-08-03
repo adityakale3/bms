@@ -12,7 +12,7 @@
 
 </head>
 <!-- <body onload="renderDate()"> -->
-<body class="light sidebar-mini sidebar-collapse">
+<body class="light sidebar-mini sidebar-collapse" onload="renderDate()">
 <!-- Pre loader -->
 
 <div id="app">
@@ -21,19 +21,15 @@
     <div class="sidebar">
         <div class="d-flex hv-100 align-items-stretch">
             <div class="indigo text-white">
-                <div class="nav mt-5 pt-5 flex-column nav-pills" id="v-pills-tab" role="tablist"
-                     aria-orientation="vertical">
-                    <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
-                       aria-controls="v-pills-home" aria-selected="true"><i class="icon-inbox2"></i></a>
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
-                       aria-controls="v-pills-profile" aria-selected="false"><i class="icon-add"></i></a>
-                    <a class="nav-link blink skin_handle"  href="#" onclick="changeTheme()"><i class="icon-lightbulb_outline"></i></a>
-                    <a class="nav-link" id="v-pills-messages-tab" href="#"><i class="icon-message"></i></a>
-                    <a class="nav-link" id="v-pills-settings-tab" href="#"><i class="icon-settings"></i></a>
+                <div class="nav mt-5 pt-5 flex-column nav-pills" aria-orientation="vertical">
+                    <a class="nav-link" href="home.html" ><i class="icon-home" title="Home"></i></a>
+                    <a class="nav-link" href="filldta.html" aria-selected="false"><i class="icon-edit" title="Fill DTA"></i></a>
+                    <a class="nav-link" href="reports.html" aria-selected="true"><i class="icon-document-text" title="Reports"></i></a>
+                    <a class="nav-link" href="settings.html" aria-selected="true"><i class="icon-cog" title="Settings"></i></a>
+                    <a class="nav-link blink skin_handle"  href="#" onclick="changeTheme()"><i title="Toggle Theme" class="icon-lightbulb_outline"></i></a>
                     <a href="#">
                         <figure class="avatar">
-                            <img src="assets/img/dummy/u3.png" alt="">
-                            <span class="avatar-badge online"></span>
+                            <img src="assets/img/logo.jpg" alt="">
                         </figure>
                     </a>
                 </div>
@@ -43,8 +39,7 @@
     </div>
 </aside>
 
-<a href="#" data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
-    <i></i>
+
 </a>
 <div class="has-sidebar-left has-sidebar-tabs">
     <!--navbar-->
@@ -73,7 +68,7 @@
                                     <div><span class="text-success"><i class="icon-user s-18"></i> Logged as </span></div>
                                 </div>
                                 <div class="text-center">
-                                    <div class="s-48 my-3 font-weight-lighter"><b>Aditya Kale</b></div>
+                                    <div class="s-36 my-3 font-weight-lighter"><b>Aditya Kale</b></div>
                                     <b>20005211</b>
                                 </div>
                             </div>
@@ -87,7 +82,7 @@
                                     <div><span class="text-success">Internet Connectivity</span></div>
                                 </div>
                                 <div class="text-center">
-                                    <div id="internet" class="s-48 my-3 font-weight-lighter">checking...</div>
+                                    <div id="internet" class="s-36 my-3 font-weight-lighter">checking...</div>
                                     <i id="ping">ping...</i>
                                 </div>
                             </div>
@@ -96,20 +91,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="card no-b mb-3 bg-warning text-white">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="icon-refresh s-18"></i></div>
-                                    <div><span class="badge badge-pill badge-primary" style="cursor:pointer;">Sync Now</span></div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="s-48 my-3 font-weight-lighter">Pending</div>
-                                    Sync Status
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                
                     <div class="col-md-6 col-sm-6">
                         <div class="card no-b mb-3 bg-success text-white">
                             <div class="card-body">
@@ -118,15 +100,14 @@
                                     <!-- <div><span class="text-danger">50</span></div> -->
                                 </div>
                                 <div class="text-center">
-                                    <div class="s-48 my-3 font-weight-lighter">Timesheet</div>
-                                    <button type="button" class="btn btn-primary btn-xs">Fill DTA</button>
+                                    <div class="s-36 my-3 font-weight-lighter">Timesheet</div>
+                                    <a href="filldta.html"><button type="button" class="btn btn-primary btn-xs">Fill DTA</button></a>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
+
                     <div class="col-md-6 col-sm-6">
                         <div class="card no-b mb-3 bg-purple text-white">
                             <div class="card-body">
@@ -135,22 +116,40 @@
                                     <div></div>
                                 </div>
                                 <div class="text-center">
-                                    <div class="s-48 my-3 font-weight-lighter">Status</div>
-                                    <button type="button" class="btn btn-primary btn-xs">View</button>
+                                    <div class="s-36 my-3 font-weight-lighter">Report</div>
+                                    <button type="button" class="btn btn-primary btn-xs">View Status</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card no-b mb-3 bg-warning text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div><i class="icon-refresh s-18"></i></div>
+                                    <div><span class="badge badge-pill badge-primary" style="cursor:pointer;">Sync Now</span></div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="s-36 my-3 font-weight-lighter">Pending</div>
+                                    Sync Status
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
-                        <div class="card no-b mb-3 bg-red text-white">
+                        <div class="card no-b mb-3 bg-green text-white">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="icon-edit s-18"></i></div>
+                                    <div><i class="icon-cog s-18"></i></div>
                                     <!-- <div><span class="text-danger">50</span></div> -->
                                 </div>
                                 <div class="text-center">
-                                    <div class="s-48 my-3 font-weight-lighter">Timesheet</div>
-                                    <button type="button" class="btn btn-primary btn-xs">Fill DTA</button>
+                                    <div class="s-36 my-3 font-weight-lighter">Settings</div>
+                                    <button type="button" class="btn btn-primary btn-xs">Preference</button>
                                 </div>
 
                             </div>
@@ -170,16 +169,12 @@
     </div>
 </div>
 
-<!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
 <div class="control-sidebar-bg shadow white fixed"></div>
 </div>
 <!--/#app -->
 <script src="script/index.js"></script>
-
 <script src="assets/js/app.js"></script>
-
-<!-- light sidebar-mini sidebar-collapse loaded theme-dark -->
+<script src="script/changeTheme.js"></script>
 </body>
 
 </html>

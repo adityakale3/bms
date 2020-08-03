@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="assets/img/basic/favicon.ico" type="image/x-icon">
+    <title>Badve Management System</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+
+
+</head>
+<!-- <body onload="renderDate()"> -->
+<body class="light sidebar-mini sidebar-collapse" onload="checkTheme()">
+<!-- Pre loader -->
+
+<div id="app">
+    <i id="loader"></i>
+<aside class="main-sidebar fixed offcanvas b-r sidebar-tabs" data-toggle='offcanvas'>
+    <div class="sidebar">
+        <div class="d-flex hv-100 align-items-stretch">
+            <div class="indigo text-white">
+                <div class="nav mt-5 pt-5 flex-column nav-pills" aria-orientation="vertical">
+                    <a class="nav-link" href="home.html" ><i class="icon-home" title="Home"></i></a>
+                    <a class="nav-link" href="filldta.html" aria-selected="false"><i class="icon-edit" title="Fill DTA"></i></a>
+                    <a class="nav-link" href="reports.html" aria-selected="true"><i class="icon-document-text" title="Reports"></i></a>
+                    <a class="nav-link" href="settings.html" aria-selected="true"><i class="icon-cog" title="Settings"></i></a>
+                    <a class="nav-link blink skin_handle"  href="#" onclick="changeTheme()"><i title="Toggle Theme" class="icon-lightbulb_outline"></i></a>
+                    <a href="#">
+                        <figure class="avatar">
+                            <img src="assets/img/logo.jpg" alt="">
+                        </figure>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</aside>
+
+
+</a>
+<div class="has-sidebar-left has-sidebar-tabs">
+    <!--navbar-->
+    <div class="sticky">
+        <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white shadow">
+            <div class="relative">
+                <div class="d-flex">
+                    <div class="d-none d-md-block">
+                        <h1 class="nav-title">Fill Timesheet</h1>
+                    </div>
+                </div>
+            </div>
+            <!--Top Menu Start -->
+
+        </div>
+    </div>
+    <!--#navbar-->
+
+    <!--#navbar-->
+    <div class="container-fluid my-3">
+        <div class="d-flex row">
+            <div class="col-6 align-self-center">
+                <div class="card">
+                    <div>
+                        <div class="card-body b-b">
+                            <div class="card-title">Select Date</div>
+                            <div class="input-group">
+                                <input type="text" class="date-time-picker form-control adi"
+                                        data-options='{"timepicker":false, "format":"d-m-Y"}' value="2018/06/01"/>
+                                <span class="input-group-append">
+                                    <span class="input-group-text add-on white">
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="nav flex-column nav-pills" id="v-pills-tab22" role="tablist" aria-orientation="vertical">
+                                    <a class="nav-link r-20 active show" id="v-pills-home-tab2" data-toggle="pill" href="#v-pills-home2" role="tab" aria-controls="v-pills-home" aria-selected="true">Routine</a>
+                                    <a class="nav-link r-20" id="v-pills-profile-tab2" data-toggle="pill" href="#v-pills-profile2" role="tab" aria-controls="v-pills-profile" aria-selected="false">Project</a>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="tab-content" id="v-pills-tabContent3">
+                                    <div class="tab-pane fade active show" id="v-pills-home2" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                        <select class="form-control adi" id="exampleFormControlSelect4">
+                                            <option>Routine Tasks</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    <div class="tab-pane fade" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                        <select class="form-control adi" id="exampleFormControlSelect4">
+                                            <option>Project Title</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                        <br>
+                                        <select class="form-control adi" id="exampleFormControlSelect4">
+                                            <option>Project Task</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <b>Hours</b>
+                                <select class="form-control adi" id="exampleFormControlSelect4">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <b>Minutes</b>
+                                <select class="form-control adi" id="exampleFormControlSelect4">
+                                    <option>0</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="form-group focused">
+                            <label for="exampleFormControlTextarea2">Remarks</label>
+                            <textarea class="form-control r-0 adi" id="exampleFormControlTextarea2" rows="3"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>Task</th>
+                        <th>Duration</th>
+                        <th>Submission</th>
+                        <th>Delete</th>
+                        <th>Sync Status</th>
+                    </tr>
+                    <tr>
+                        <td title="Training with interns of MIT">Training</td>
+                        <td>1 Hr 20 Mins</td>
+                        <td style="text-align: center;"><i class="icon-check" style="color:green"></i></td>
+                        <td style="text-align: center;"><i class="icon-trash-can2" style="color:red"></i></td>
+                        <td style="text-align: center;"><i class="icon-sync" style="color:red"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Meeting</td>
+                        <td>2 Hr 00 Mins</td>
+                        <td style="text-align: center;"><i class="icon-check" style="color:green"></i></td>
+                        <td style="text-align: center;"><i class="icon-trash-can2" style="color:red"></i></td>
+                        <td style="text-align: center;"><i class="icon-sync" style="color:red"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Project Work</td>
+                        <td>4 Hr 20 Mins</td>
+                        <td style="text-align: center;"><i class="icon-check" style="color:green"></i></td>
+                        <td style="text-align: center;"><i class="icon-trash-can2" style="color:red"></i></td>
+                        <td style="text-align: center;"><i class="icon-check" style="color:green"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Unplanned</td>
+                        <td>1 Hr 00 Mins</td>
+                        <td style="text-align: center;"><i class="icon-check" style="color:green"></i></td>
+                        <td style="text-align: center;"><i class="icon-trash-can2" style="color:red"></i></td>
+                        <td style="text-align: center;"><i class="icon-sync" style="color:red"></i></td>
+                    </tr>
+                    </tbody>
+                </table>               
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Right Sidebar -->
+
+<!-- /.right-sidebar -->
+<!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+<div class="control-sidebar-bg shadow white fixed"></div>
+</div>
+<script src="./script/changeTheme.js"></script>
+<!--/#app -->
+<script src="assets/js/app.js"></script>
+
+
+</body>
+
+<!-- Mirrored from xvelopers.com/demos/html/panel/panel-element-date-time-picker.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Jul 2020 08:20:34 GMT -->
+</html>

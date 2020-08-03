@@ -7,8 +7,8 @@ app.on('ready', () => {
   // create main browser window
   win = new BrowserWindow({
       titleBarStyle: 'hidden',
-      width: 800,
-      height: 600,
+      width: 1024,
+      height: 700,
       show: false, // don't show the main window
      webPreferences : {
          nodeIntegration : true

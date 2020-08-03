@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="assets/img/basic/favicon.ico" type="image/x-icon">
+    <title>Badve Management System</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/calendar.css">
+
+</head>
+<!-- <body onload="renderDate()"> -->
+<body class="light sidebar-mini sidebar-collapse" onload="renderDate()">
+<!-- Pre loader -->
+
+<div id="app">
+    <i id="loader"></i>
+<aside class="main-sidebar fixed offcanvas b-r sidebar-tabs" data-toggle='offcanvas'>
+    <div class="sidebar">
+        <div class="d-flex hv-100 align-items-stretch">
+            <div class="indigo text-white">
+                <div class="nav mt-5 pt-5 flex-column nav-pills" aria-orientation="vertical">
+                    <a class="nav-link" href="home.html" ><i class="icon-home" title="Home"></i></a>
+                    <a class="nav-link" href="filldta.html" aria-selected="false"><i class="icon-edit" title="Fill DTA"></i></a>
+                    <a class="nav-link" href="reports.html" aria-selected="true"><i class="icon-document-text" title="Reports"></i></a>
+                    <a class="nav-link" href="settings.html" aria-selected="true"><i class="icon-cog" title="Settings"></i></a>
+                    <a class="nav-link blink skin_handle"  href="#" onclick="changeTheme()"><i title="Toggle Theme" class="icon-lightbulb_outline"></i></a>
+                    <a href="#">
+                        <figure class="avatar">
+                            <img src="assets/img/logo.jpg" alt="">
+                        </figure>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</aside>
+
+
+</a>
+<div class="has-sidebar-left has-sidebar-tabs">
+    <!--navbar-->
+    <div class="sticky">
+        <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white shadow">
+            <div class="relative">
+                <div class="d-flex">
+                    <div class="d-none d-md-block">
+                        <h1 class="nav-title">Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <!--Top Menu Start -->
+
+        </div>
+    </div>
+    <!--#navbar-->
+    <div class="container-fluid relative animatedParent animateOnce my-3">
+        <div class="row row-eq-height my-3 mt-3">
+            <div class="col-md-6">
+                <div class="card" style="border-radius: 10px;">
+                    <div class="container">
+                        <br>
+                        <div class="wrapper">
+                            <div class="calendar" >
+                                <div class="month">
+                                    <div class="prev" onclick="moveDate('prev')">
+                                        <span>&#10094;</span>
+                                    </div>
+                                    <div>
+                                        <h2 id="month" style="color: white;"></h2>
+                                        <p id="date_str" style="display: none;"></p>
+                                    </div>
+                                    <div class="next" onclick="moveDate('next')">
+                                        <span>&#10095;</span>
+                                    </div>
+                                </div>
+                                <div class="weekdays">
+                                    <div>Sun</div>
+                                    <div>Mon</div>
+                                    <div>Tue</div>
+                                    <div>Wed</div>
+                                    <div>Thu</div>
+                                    <div>Fri</div>
+                                    <div>Sat</div>
+                                </div>
+                                <div class="days">
+                        
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>Task</th>
+                        <th>Duration</th>
+                        <th>Submission</th>
+                        <th>Sync Status</th>
+                    </tr>
+                    <tr onclick="displayComment()">
+                        <td title="Training with interns of MIT">Training</td>
+                        <td>1 Hr 20 Mins</td>
+                        <td style="text-align: center;"><i class="icon-check" style="color:green"></i></td>
+                        <td style="text-align: center;"><i class="icon-sync" style="color:red"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Meeting</td>
+                        <td>2 Hr 00 Mins</td>
+                        <td style="text-align: center;"><i class="icon-check" style="color:green"></i></td>
+                        <td style="text-align: center;"><i class="icon-sync" style="color:red"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Project Work</td>
+                        <td>4 Hr 20 Mins</td>
+                        <td style="text-align: center;"><i class="icon-check" style="color:green"></i></td>
+                        <td style="text-align: center;"><i class="icon-check" style="color:green"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Unplanned</td>
+                        <td>1 Hr 00 Mins</td>
+                        <td style="text-align: center;"><i class="icon-check" style="color:green"></i></td>
+                        <td style="text-align: center;"><i class="icon-sync" style="color:red"></i></td>
+                    </tr>
+                    </tbody>
+                </table>   
+
+                <div id="comments">
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+<div class="control-sidebar-bg shadow white fixed"></div>
+</div>
+<!--/#app -->
+<script src="assets/js/app.js"></script>
+<script src="script/calendar.js"></script>
+<script src="script/reports.js"></script>
+<script src="script/changeTheme.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+		.theme-dark {
+			background: #212121
+		}
+		.theme-dark .card,
+		.theme-dark .list-group-item,
+		.theme-dark .main-sidebar,
+		.theme-dark .navbar,
+		.theme-dark .progress,
+		.theme-dark .white,
+		.theme-dark.body,
+		.theme-dark.card,
+		.theme-dark.main-sidebar,
+		.theme-dark.navbar {
+			background: #272c33!important
+		}
+		.theme-dark .b-b,
+		.theme-dark .b-l,
+		.theme-dark .b-r,
+		.theme-dark .b-t,
+		.theme-dark .card,
+		.theme-dark .card-footer,
+		.theme-dark .card-header,
+		.theme-dark .form-material .form-group .form-line,
+		.theme-dark .list-group-item,
+		.theme-dark .table td,
+		.theme-dark .table th,
+		.theme-dark .table tr,
+		.theme-dark.b-b,
+		.theme-dark.b-l,
+		.theme-dark.b-r,
+		.theme-dark.b-t {
+			border-color: #30384b!important
+		}
+		.theme-dark .form-control {
+			border-color: #30384b;
+			background: #212121
+		}
+		.theme-dark .form-control:focus {
+			border-color: #03a9f4
+		}
+		.theme-dark .form-material .form-control {
+			background: 0 0!important
+		}
+		.theme-dark .card-header,
+		.theme-dark .light,
+		.theme-dark .sidebar-menu li a:hover,
+		.theme-dark .table-hover tbody tr:hover,
+		.theme-dark .table-striped tbody tr:nth-of-type(2n+1),
+		.theme-dark .white {
+			background: rgba(0, 0, 0, .1)
+		}
+		.theme-dark .offcanvas .sidebar-menu>li,
+		.theme-dark .sidebar-tabs,
+		.theme-dark .tab-content,
+		.theme-dark.offcanvas .sidebar-menu>li {
+			border-color: #30384b!important
+		}
+		.theme-dark .offcanvas .sidebar-menu>li a.active,
+		.theme-dark .sidebar-tabs a.active,
+		.theme-dark .tab-content a.active,
+		.theme-dark.offcanvas .sidebar-menu>li a.active {
+			color: #03a9f4
+		}
+		.theme-dark .offcanvas .sidebar-menu>li a.nav-link,
+		.theme-dark .sidebar-tabs a.nav-link,
+		.theme-dark .tab-content a.nav-link,
+		.theme-dark.offcanvas .sidebar-menu>li a.nav-link {
+			color: #fff
+        }
+        
+        .adi {
+            border: 1px solid #3F51B5 ;
+        }
