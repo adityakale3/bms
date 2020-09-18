@@ -4,7 +4,7 @@
   "description": "Badve management System Desktop app",
   "main": "main.js",
   "dependencies": {
-    "electron": "^9.1.1",
+    "electron": "^9.3.1",
     "jjg-ping": "^1.0.3",
     "jquery": "^3.5.1",
     "jsonwebtoken": "^8.5.1"

@@ -12,6 +12,7 @@ app.on("ready", () => {
     show: false, // don't show the main window
     webPreferences: {
       nodeIntegration: true,
+      nodeIntegrationInWorker: true,
     },
   });
 
