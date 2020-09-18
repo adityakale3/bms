@@ -1,29 +1,35 @@
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow } = require("electron");
 
 let win;
-let splash
+let splash;
 
-app.on('ready', () => {
+app.on("ready", () => {
   // create main browser window
   win = new BrowserWindow({
-      titleBarStyle: 'hidden',
-      width: 1024,
-      height: 700,
-      show: false, // don't show the main window
-     webPreferences : {
-         nodeIntegration : true
-     }
+    titleBarStyle: "hidden",
+    width: 1024,
+    height: 700,
+    show: false, // don't show the main window
+    webPreferences: {
+      nodeIntegration: true,
+    },
   });
 
-  // create a new `splash`-Window 
-  splash = new BrowserWindow({width: 810, height: 610, transparent: true, frame: false, alwaysOnTop: true});
+  // create a new `splash`-Window
+  splash = new BrowserWindow({
+    width: 810,
+    height: 610,
+    transparent: true,
+    frame: false,
+    alwaysOnTop: true,
+  });
   splash.loadURL(`file://${__dirname}/splash/splash.html`);
-  win.loadURL(`file://${__dirname}/main/home.html`);
+  win.loadURL(`file://${__dirname}/main/checkall.html`);
   // if main window is ready to show, then destroy the splash window and show up the main window
-  win.once('ready-to-show', () => {
-      setTimeout(() => {
-        splash.destroy();
-        win.show();
-      }, 1000);
+  win.once("ready-to-show", () => {
+    setTimeout(() => {
+      splash.destroy();
+      win.show();
+    }, 1000);
   });
 });

@@ -1,3 +1,22 @@
 BMS eletron app:
     ☐ UI for task
+
+
+API:
+    ☐ Login
+    ☐ Fill DTA
+        ☐ Retrive Tasks
+        ☐ Retrive Projects
+        ☐ Retrive Project Tasks
+    ☐ Date wise DTA
+
+
+Flow:                                     Yes                           Yes                                  If code matched with token
+    On Load -----> Check for internet   ------> Check for Cookie Token ------>  Ask to Enter Employee Code  -----------------------------> Show Home Page 
+                            |                           |                                   |
+                        No  |                       No  |                                   |  If Not matched
+                            v                           v                                   |
+                        Show 404                    Show Login Page    <---------------------                    
+                                                                                                
     
+

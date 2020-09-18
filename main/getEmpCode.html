@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link
+      rel="icon"
+      href="./assets/img/basic/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Auth Employee</title>
+    <link rel="stylesheet" href="./assets/css/app.css" />
+  </head>
+  <body class="light sidebar-mini sidebar-collapse">
+    <div id="app">
+      <main>
+        <div id="primary" class="blue4 p-t-b-100 height-full responsive-phone">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6 p-t-100">
+                <div class="text-white">
+                  <h1>Welcome Back</h1>
+                  <p class="s-18 p-t-b-20 font-weight-lighter">
+                    Hey Soldier welcome back signin now there is lot of new
+                    stuff waiting for you
+                  </p>
+                </div>
+                <form onsubmit="validate()">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group has-icon">
+                        <i class="icon-user"></i>
+                        <input
+                          type="number"
+                          class="form-control form-control-lg no-b"
+                          placeholder="Employee Code"
+                          name="empcode"
+                          id="empcode"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <input
+                        type="submit"
+                        class="btn btn-success btn-lg btn-block"
+                        value="Verify Me"
+                      />
+                    </div>
+                  </div>
+                </form>
+                <button
+                  class="btn btn-primary btn-lg toast-action"
+                  data-title="Hey, Bro!"
+                  data-message="Paper Panel has toast as well."
+                  data-type="info"
+                  data-position-class="toast-bottom-right"
+                  style="display: none"
+                  id="notification"
+                >
+                  Info Toast
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- #primary -->
+      </main>
+      <div class="control-sidebar-bg shadow white fixed"></div>
+    </div>
+    <!--/#app -->
+    <script src="assets/js/app.js"></script>
+    <script src="./script/checkInternet.js"></script>
+    <script src="./script/readWriteCookie.js"></script>
+    <script src="./script/jwtTokenDecrypt.js"></script>
+    <script>
+      const validate = () => {
+        if (getCookie("tokenAuth") == "undefined") {
+          window.location = "login.html";
+        } else {
+          // Check Internet
+          if (checkNetStatus()) {
+            // Get Saved Token Empcode and User input empcode
+            let tokenData = validateToken(getCookie("tokenAuth"));
+            let userInputEmpCode = document.getElementById("empcode").value;
+
+            // Verify if both match
+            if (tokenData.empcode == userInputEmpCode) {
+              document.getElementById("notification").click();
+              setTimeout(() => {
+                window.location = "home.html";
+              }, 1000);
+            } else {
+              document.getElementById("notification").click();
+              setTimeout(() => {
+                window.location = "login.html";
+              }, 1000);
+            }
+          } else {
+            window.location = "404.html?last=login.html";
+          }
+        }
+      };
+    </script>
+  </body>
+</html>

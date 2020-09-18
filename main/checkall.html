@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Splash Screen</title>
+    <link href="../splash/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <center>
+      <div class="content">
+        <img id="heart" src="../splash/logo.jpg" />
+      </div>
+    </center>
+    <script src="./script/checkInternet.js"></script>
+    <script src="./script/readWriteCookie.js"></script>
+    <script>
+      // Check Internet
+      if (checkNetStatus()) {
+        console.log(getCookie("tokenAuth"));
+        alert(getCookie("tokenAuth"));
+        if (getCookie("tokenAuth") == "undefined") {
+          window.location = "login.html";
+        } else {
+          window.location = "getEmpCode.html";
+        }
+      } else {
+        window.location = "404.html?last=checkall.html";
+      }
+    </script>
+  </body>
+</html>
