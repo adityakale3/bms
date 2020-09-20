@@ -1,67 +1,150 @@
 <!DOCTYPE html>
 <html lang="zxx">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="assets/img/basic/favicon.ico" type="image/x-icon">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="assets/img/basic/favicon.ico" type="image/x-icon" />
     <title>Paper</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/app.css" />
     <style>
-        .adi{
-                margin-top: 30%;
-        }
-        .adi1{
-                margin-top: 20%;
-        }
+      .adi {
+        margin-top: 30%;
+      }
+      .adi1 {
+        margin-top: 20%;
+      }
     </style>
-</head>
-<body class="light sidebar-mini sidebar-collapse">
-<div id="app">
-
-<div class="page parallel">
-    <div class="d-flex row">
-        <div class="col-md-7  height-full blue accent-3 align-self-center text-center d-none d-md-block" data-bg-repeat="false"
-        data-bg-possition="center">
+  </head>
+  <body class="light sidebar-mini sidebar-collapse">
+    <div id="app">
+      <div class="page parallel">
+        <div class="d-flex row">
+          <div
+            class="col-md-7 height-full blue accent-3 align-self-center text-center d-none d-md-block"
+            data-bg-repeat="false"
+            data-bg-possition="center"
+          >
             <div class="p-5 adi1">
-                <img src="assets/img/logo.jpg" alt=""/>
-            </div>    
-        </div>
-        <div class="col-md-5 white">
-            <div class="p-5 adi">
-                <center><h2><b>Welcome</b></h2></center>
-                <br>
-                <p>Hey Soldier welcome back signin now there is lot of
-                    new stuff waiting
-                    for you</p>
-                <form>
-                    <div class="form-group has-icon"><i class="icon-user"></i>
-                        <input type="text" class="form-control form-control-lg"
-                               placeholder="Email Address">
-                    </div>
-                    <div class="form-group has-icon"><i class="icon-user-secret"></i>
-                        <input type="password" class="form-control form-control-lg"
-                               placeholder="Password">
-                    </div>
-                    <a href="home.html"><button class="btn btn-primary btn-lg btn-block">Login</button></a>
-                    <!-- <input type="submit" class="btn btn-primary btn-lg btn-block" value="Log In"> -->
-                </form>
+              <img src="assets/img/logo.jpg" alt="" />
             </div>
+          </div>
+          <div class="col-md-5 white">
+            <div class="p-5 adi">
+              <center>
+                <h2><b>Welcome</b></h2>
+              </center>
+              <br />
+              <p>
+                Hey Soldier welcome back signin now there is lot of new stuff
+                waiting for you
+              </p>
+              <form>
+                <div class="form-group has-icon">
+                  <i class="icon-user"></i>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    placeholder="Employee Code"
+                    id="empcode"
+                  />
+                </div>
+                <div class="form-group has-icon">
+                  <i class="icon-user-secret"></i>
+                  <input
+                    type="password"
+                    class="form-control form-control-lg"
+                    placeholder="Password"
+                    id="password"
+                  />
+                </div>
+                <input
+                  type="submit"
+                  class="btn btn-primary btn-lg btn-block"
+                  value="Login"
+                  onclick="event.preventDefault(); login()"
+                />
+                <!-- <input type="submit" class="btn btn-primary btn-lg btn-block" value="Log In"> -->
+              </form>
+            </div>
+          </div>
         </div>
-    </div>
-</div>
-
-<!-- Add the sidebar's background. This div must be placed
+      </div>
+      <button
+        class="btn btn-primary btn-lg toast-action"
+        data-title="Invalid Credentials"
+        data-message="Employee Code or password invalid"
+        data-type="danger"
+        data-position-class="toast-bottom-right"
+        style="display: none"
+        id="notification"
+      >
+        Error Toast
+      </button>
+      <button
+        class="btn btn-primary btn-lg toast-action"
+        data-title="Verified"
+        data-message="Employee authorised, redirecting..."
+        data-type="success"
+        data-position-class="toast-bottom-right"
+        style="display: none"
+        id="notification"
+      >
+        Ok Toast
+      </button>
+      <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
-</div>
-<!--/#app -->
-<script src="assets/js/app.js"></script>
+    </div>
+    <!--/#app -->
+    <script src="assets/js/app.js"></script>
+    <script src="./script/readWriteToken.js"></script>
+    <script>
+      let fetchAPI = require("./script/fetchAPIcalls.js");
 
-</body>
+      function login() {
+        let empcode = document.getElementById("empcode").value;
+        let password = document.getElementById("password").value;
 
-<!-- Mirrored from xvelopers.com/demos/html/panel/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Jul 2020 08:20:29 GMT -->
+        empcode = parseInt(empcode.trim());
+        password = password.trim();
+        console.log(typeof empcode);
+        if (empcode != "" && typeof empcode == "number") {
+          if (password != "") {
+            fetchAPI
+              .loginVerify(empcode, password)
+              .then((verifiedLogin) => {
+                alert(verifiedLogin);
+                if (verifiedLogin.err) {
+                  // document.getElementById("notification").click();
+                  alert(verifiedLogin.msg);
+                } else {
+                  // User verified with authToken
+                  // 1. Create Cokkie with token
+                  // 2. Redirect user to home page
+                  alert("Approved Login");
+                  //setToken(verifiedLogin.msg);
+                  setTimeout(() => {
+                    window.location = "home.html";
+                  }, 2000);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          } else {
+            // document.getElementById("notification").click();
+          }
+        } else {
+          // document.getElementById("notification").click();
+        }
+      }
+    </script>
+  </body>
+
+  <!-- Mirrored from xvelopers.com/demos/html/panel/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Jul 2020 08:20:29 GMT -->
 </html>
-

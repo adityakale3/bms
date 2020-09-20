@@ -14,55 +14,20 @@
       <div id="test"></div>
     </center>
     <script src="./script/checkInternet.js"></script>
-    <!-- <script src="./script/readWriteToken.js"></script> -->
+    <script src="./script/readWriteToken.js"></script>
     <script>
       // Get Token Files
 
-      var fs = require("fs");
-      console.log(__dirname);
-      let getToken = () => {
-        fs.readFileSync(
-          `${__dirname}/script/loginToken.txt`,
-          "utf8",
-          (error, data) => {
-            if (error) {
-              return "error reading file";
-            } else {
-              if (data == "") {
-                return "No data present";
-              } else {
-                return data;
-              }
-            }
-          }
-        );
-      };
-
-      let setToken = (tokenData) => {
-        //fs.unlinkSync(`${__dirname}/script/loginToken.txt`);
-
-        fs.writeFile(`${__dirname}/script/loginToken.txt`, tokenData, function (
-          err
-        ) {
-          if (err) {
-            return "Some error";
-          } else {
-            return "File Created";
-          }
-        });
-      };
       // Check Internet
       if (checkNetStatus()) {
-        document.getElementById("test").value = getToken();
         console.log(getToken());
-        console.log(setToken("Data"));
-        console.log(`${__dirname}/script/loginToken.txt`);
         //alert(getToken());
-        alert(setToken("setToken"));
-        if (getToken()) {
-          // window.location = "getEmpCode.html";
+        if (getToken() == null) {
+          // alert(getToken() + "Token NOT Avaliable");
+          window.location = "login.html";
         } else {
-          // window.location = "login.html";
+          // alert(getToken() + "Token Avaliable");
+          window.location = "getEmpCode.html";
         }
       } else {
         window.location = "404.html?last=checkall.html";
