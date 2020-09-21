@@ -12,6 +12,7 @@
     <title>Paper</title>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css" />
+    <link rel="stylesheet" href="assets/css/aditya.css" />
     <style>
       .adi {
         margin-top: 30%;
@@ -75,36 +76,17 @@
           </div>
         </div>
       </div>
-      <button
-        class="btn btn-primary btn-lg toast-action"
-        data-title="Invalid Credentials"
-        data-message="Employee Code or password invalid"
-        data-type="danger"
-        data-position-class="toast-bottom-right"
-        style="display: none"
-        id="notification"
-      >
-        Error Toast
-      </button>
-      <button
-        class="btn btn-primary btn-lg toast-action"
-        data-title="Verified"
-        data-message="Employee authorised, redirecting..."
-        data-type="success"
-        data-position-class="toast-bottom-right"
-        style="display: none"
-        id="notification"
-      >
-        Ok Toast
-      </button>
+      <div id="snackbar"></div>
+
       <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
     </div>
     <!--/#app -->
     <script src="assets/js/app.js"></script>
-    <script src="./script/readWriteToken.js"></script>
+    <script src="assets/js/aditya.js"></script>
+    <script src="./script/fetchAPIcalls.js"></script>
     <script>
-      let fetchAPI = require("./script/fetchAPIcalls.js");
+      let tokenReadWrite = require("./script/readWriteToken.js");
 
       function login() {
         let empcode = document.getElementById("empcode").value;
@@ -115,32 +97,54 @@
         console.log(typeof empcode);
         if (empcode != "" && typeof empcode == "number") {
           if (password != "") {
-            fetchAPI
-              .loginVerify(empcode, password)
+            // fetchAPI
+            loginVerify2(empcode, password)
               .then((verifiedLogin) => {
-                alert(verifiedLogin);
                 if (verifiedLogin.err) {
-                  // document.getElementById("notification").click();
-                  alert(verifiedLogin.msg);
+                  showToast("Error Loggin-In, redirecting...", "danger", 2000);
+                  setTimeout(() => {
+                    window.location = "checkall.html";
+                  }, 2000);
                 } else {
                   // User verified with authToken
                   // 1. Create Cokkie with token
                   // 2. Redirect user to home page
-                  alert("Approved Login");
-                  //setToken(verifiedLogin.msg);
-                  setTimeout(() => {
-                    window.location = "home.html";
-                  }, 2000);
+
+                  if (tokenReadWrite.setToken(verifiedLogin.msg)) {
+                    showToast(
+                      "Employee authorised, redirecting...",
+                      "success",
+                      2000
+                    );
+                    setTimeout(() => {
+                      window.location = "home.html";
+                    }, 2000);
+                  } else {
+                    showToast(
+                      "Error Loggin-In, redirecting...",
+                      "danger",
+                      2000
+                    );
+                    setTimeout(() => {
+                      window.location = "checkall.html";
+                    }, 2000);
+                  }
                 }
               })
               .catch((err) => {
                 console.log(err);
               });
           } else {
-            // document.getElementById("notification").click();
+            showToast("Error Loggin-In, redirecting...", "danger", 2000);
+            setTimeout(() => {
+              window.location = "checkall.html";
+            }, 2000);
           }
         } else {
-          // document.getElementById("notification").click();
+          showToast("Error Loggin-In, redirecting...", "danger", 2000);
+          setTimeout(() => {
+            window.location = "checkall.html";
+          }, 2000);
         }
       }
     </script>

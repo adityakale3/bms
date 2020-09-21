@@ -1,36 +1,57 @@
 // Get Token Files
 const fs = require("fs");
+var path = "./authAPI/loginToken.txt";
 
+// Get Token from Auth File
 let getToken = () => {
-  var dc = document.cookie;
-  var prefix = "authToken" + "=";
-  var begin = dc.indexOf("; " + prefix);
-  if (begin == -1) {
-    begin = dc.indexOf(prefix);
-    if (begin != 0) return null;
+  return new Promise(function (resolve, reject) {
+    if (fs.existsSync(path)) {
+      if (fs.readFileSync(path, { encoding: "utf8", flag: "r" }) == "") {
+        resolve({ err: true, msg: "No Data" });
+      } else {
+        resolve({
+          err: false,
+          msg: fs.readFileSync(path, { encoding: "utf8", flag: "r" }),
+        });
+      }
+    } else {
+      reject({ err: true, msg: "File Not Found" });
+    }
+  });
+};
+
+// Set Token in Auth File
+let setToken = (tokenData) => {
+  if (fs.existsSync(path)) {
+    fs.unlinkSync(path);
+
+    try {
+      fs.writeFileSync(path, tokenData);
+      return true;
+    } catch (err) {
+      return false;
+    }
   } else {
-    begin += 2;
-    var end = document.cookie.indexOf(";", begin);
-    if (end == -1) {
-      end = dc.length;
+    try {
+      fs.writeFileSync(path, tokenData);
+      return true;
+    } catch (err) {
+      return false;
     }
   }
-  // because unescape has been deprecated, replaced with decodeURI
-  //return unescape(dc.substring(begin + prefix.length, end));
-  return decodeURI(dc.substring(begin + prefix.length, end));
 };
 
-let setToken = (tokenData, days = 30) => {
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toUTCString();
+let delToken = () => {
+  if (fs.existsSync(path)) {
+    fs.unlinkSync(path);
+    return true;
+  } else {
+    return true;
   }
-  document.cookie =
-    "authToken" + "=" + (tokenData || "") + expires + "; path=/";
 };
 
-let delToken = (name = "authToken") => {
-  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+module.exports = {
+  getToken,
+  setToken,
+  delToken,
 };

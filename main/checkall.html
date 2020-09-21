@@ -14,21 +14,20 @@
       <div id="test"></div>
     </center>
     <script src="./script/checkInternet.js"></script>
-    <script src="./script/readWriteToken.js"></script>
+
     <script>
       // Get Token Files
+      const readWriteToken = require("./script/readWriteToken.js");
 
       // Check Internet
       if (checkNetStatus()) {
-        console.log(getToken());
-        //alert(getToken());
-        if (getToken() == null) {
-          // alert(getToken() + "Token NOT Avaliable");
-          window.location = "login.html";
-        } else {
-          // alert(getToken() + "Token Avaliable");
-          window.location = "getEmpCode.html";
-        }
+        readWriteToken.getToken().then((getTokenData) => {
+          if (getTokenData.err) {
+            window.location = "login.html";
+          } else {
+            window.location = "getEmpCode.html";
+          }
+        });
       } else {
         window.location = "404.html?last=checkall.html";
       }

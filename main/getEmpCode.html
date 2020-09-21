@@ -15,6 +15,7 @@
     />
     <title>Auth Employee</title>
     <link rel="stylesheet" href="./assets/css/app.css" />
+    <link rel="stylesheet" href="./assets/css/aditya.css" />
   </head>
   <body class="light sidebar-mini sidebar-collapse">
     <div id="app">
@@ -30,7 +31,7 @@
                     stuff waiting for you
                   </p>
                 </div>
-                <form onsubmit="validate()">
+                <form>
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group has-icon">
@@ -46,24 +47,22 @@
                     </div>
                     <div class="col-lg-12">
                       <input
-                        type="submit"
+                        type="button"
                         class="btn btn-success btn-lg btn-block"
                         value="Verify Me"
+                        onclick="validate()"
                       />
                     </div>
                   </div>
                 </form>
+                <br />
                 <button
-                  class="btn btn-primary btn-lg toast-action"
-                  data-title="Hey, Bro!"
-                  data-message="Paper Panel has toast as well."
-                  data-type="info"
-                  data-position-class="toast-bottom-right"
-                  style="display: none"
-                  id="notification"
+                  onclick="logout()"
+                  class="btn btn-danger btn-lg btn-block"
                 >
-                  Info Toast
+                  Logout
                 </button>
+                <div id="snackbar"></div>
               </div>
             </div>
           </div>
@@ -74,35 +73,53 @@
     </div>
     <!--/#app -->
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/aditya.js"></script>
     <script src="./script/checkInternet.js"></script>
-    <script src="./script/readWriteToken.js"></script>
+
     <script src="./script/jwtTokenDecrypt.js"></script>
     <script>
-      const validate = () => {
-        if (getCookie("tokenAuth") == "undefined") {
-          window.location = "login.html";
-        } else {
-          // Check Internet
-          if (checkNetStatus()) {
-            // Get Saved Token Empcode and User input empcode
-            let tokenData = validateToken(getCookie("tokenAuth"));
-            let userInputEmpCode = document.getElementById("empcode").value;
+      let tokenReadWrite = require("./script/readWriteToken.js");
 
-            // Verify if both match
-            if (tokenData.empcode == userInputEmpCode) {
-              document.getElementById("notification").click();
+      let logout = () => {
+        delToken();
+        setTimeout(() => {
+          window.location = "checkall.html";
+        }, 1000);
+      };
+
+      const validate = () => {
+        // Check Internet
+        if (checkNetStatus()) {
+          // Get Saved Token Empcode and User input empcode
+
+          let userInputEmpCode = document.getElementById("empcode").value;
+
+          validateToken().then((decryptedTokenData) => {
+            // console.log(decryptedTokenData, userInputEmpCode);
+            if (decryptedTokenData.empcode == userInputEmpCode) {
+              showToast(
+                "Authorized Emplopyee  Welcome, redirecting...",
+                "success",
+                2000
+              );
+              console.log("Authorized Emplopyee 👍 Welcome, redirecting...");
               setTimeout(() => {
                 window.location = "home.html";
               }, 1000);
             } else {
-              document.getElementById("notification").click();
+              showToast(
+                "Someone Else is logged in  Retry or Logout",
+                "danger",
+                2000
+              );
+              console.log("Someone Else is logged in 👎 Retry or Logout");
               setTimeout(() => {
-                window.location = "login.html";
-              }, 1000);
+                window.location = "checkall.html";
+              }, 2000);
             }
-          } else {
-            window.location = "404.html?last=login.html";
-          }
+          });
+        } else {
+          window.location = "404.html?last=login.html";
         }
       };
     </script>

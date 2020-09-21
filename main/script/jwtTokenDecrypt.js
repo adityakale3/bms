@@ -1,18 +1,15 @@
 const jwt = require("jsonwebtoken");
 
-const validateToken = async (token) => {
+const validateToken = async () => {
   // Validate Token user with input Value
-  const decrypt = await jwt.verify(token, "Adityasecret");
-  console.log("Dcrypt ", decrypt);
-  req.user = {
-    empcode: decrypt.empcode,
-    name: decrypt.empname,
-    band: decrypt.grade,
-    dept: decrypt.dept,
-    subdept: decrypt.subdept,
-    ro: decrypt.ro,
-    designation: decrypt.designation,
-    plantcode: decrypt.plantcode,
-    division: decrypt.division,
-  };
+  return new Promise((resolve, reject) => {
+    tokenReadWrite
+      .getToken()
+      .then((token) => jwt.verify(token.msg, "Adityasecret"))
+      .then((decryptData) => {
+        resolve(decryptData);
+      });
+  });
 };
+
+module.exports = { validateToken };

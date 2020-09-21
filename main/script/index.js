@@ -53,7 +53,7 @@ function checkPing() {
       // Host is reachable/up. Latency should have a value.
       console.log("Google is reachable (" + latency + " ms ping).");
       if (latency < 150) {
-        pingElement.innerHTML = `<b id="pingColor"><i class="icon-wifi s-18"></i> ${latency} ms</b>`;
+        pingElement.innerHTML = `<b id="pingColor"><i class="icon-wifi s-18"></i> ${latency} ms 👍</b>`;
         document.getElementById("pingColor").style.color = "#00FF00";
       } else if (latency >= 150 && latency <= 300) {
         pingElement.innerHTML = `<b id="pingColor"><i class="icon-wifi s-18"></i> ${latency} ms</b>`;
