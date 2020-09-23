@@ -21,13 +21,21 @@
 
       // Check Internet
       if (checkNetStatus()) {
-        readWriteToken.getToken().then((getTokenData) => {
-          if (getTokenData.err) {
-            window.location = "login.html";
-          } else {
-            window.location = "getEmpCode.html";
-          }
-        });
+        readWriteToken
+          .getToken()
+          .then((getTokenData) => {
+            if (getTokenData.err) {
+              window.location = "login.html";
+            } else {
+              window.location = "getEmpCode.html";
+            }
+          })
+          .catch((errNew) => {
+            if (errNew.msg == "File Not Found") {
+              console.log(errNew);
+              window.location = "login.html";
+            }
+          });
       } else {
         window.location = "404.html?last=checkall.html";
       }

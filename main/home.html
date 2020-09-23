@@ -12,6 +12,48 @@
     <title>Badve Management System</title>
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/app.css" />
+    <style>
+      .icon-refresh {
+        overflow: hidden;
+        transition-duration: 0.8s;
+        transition-property: transform;
+      }
+
+      .rotator {
+        display: inline-block;
+        animation: rotate 2s infinite linear;
+      }
+
+      @-webkit-keyframes rotate {
+        0% {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(359deg);
+          transform: rotate(359deg);
+        }
+      }
+      @keyframes rotate {
+        0% {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(359deg);
+          transform: rotate(359deg);
+        }
+      }
+      /* @-webkit-keyframes rotate {
+              from {
+                -webkit-transform: rotate(-12deg);
+              }
+
+              to {
+                -webkit-transform: rotate(112deg);
+              }
+            } */
+    </style>
   </head>
   <!-- <body onload="renderDate()"> -->
   <body class="light sidebar-mini sidebar-collapse" onload="renderDate()">
@@ -183,18 +225,27 @@
                       <div
                         class="d-flex justify-content-between align-items-center"
                       >
-                        <div><i class="icon-refresh s-18"></i></div>
+                        <div>
+                          <i class="icon-refresh s-18" id="refreshIcon"></i>
+                        </div>
                         <div>
                           <span
                             class="badge badge-pill badge-primary"
                             style="cursor: pointer"
+                            onclick="fetchData()"
+                            id="syncBtn"
                             >Sync Now</span
                           >
                         </div>
                       </div>
                       <div class="text-center">
-                        <div class="s-36 my-3 font-weight-lighter">Pending</div>
-                        Sync Status
+                        <div
+                          class="s-36 my-3 font-weight-lighter"
+                          id="mainSync"
+                        >
+                          Synced
+                        </div>
+                        <div id="synctStaus">Last Synced :</div>
                       </div>
                     </div>
                   </div>
@@ -240,22 +291,254 @@
     <script src="./script/jwtTokenDecrypt.js"></script>
     <script>
       let tokenReadWrite = require("./script/readWriteToken.js");
+      let fetchCheckData = require("./script/fetchCheckData.js");
+
+      // Fetching Elements
+      var mainSync = document.getElementById("mainSync");
+      var synctStaus = document.getElementById("synctStaus");
+      var syncBtn = document.getElementById("syncBtn");
+
+      var path = "./userData/userData.json";
+      const fs = require("fs");
+      const axios = require("axios");
+
+      // global variables
+      var empcode = "";
+
       // Log off User
       let logout = () => {
-        delToken();
+        tokenReadWrite.delToken();
         setTimeout(() => {
           window.location = "checkall.html";
         }, 2000);
       };
 
       // Fetch Home Data
-      validateToken().then((decryptedTokenData) => {
-        console.log(decryptedTokenData);
-        document.getElementById("empname").innerHTML = decryptedTokenData.name;
+      validateToken()
+        .then((decryptedTokenData) => {
+          // console.log(decryptedTokenData);
+          empcode = decryptedTokenData.empcode;
+          document.getElementById("empname").innerHTML =
+            decryptedTokenData.name;
+          document.getElementById("empcode").innerHTML =
+            decryptedTokenData.empcode;
+        })
+        .catch((errorExpired) => {
+          if (errorExpired.name == "TokenExpiredError") {
+            logout();
+          }
+        });
 
-        document.getElementById("empcode").innerHTML =
-          decryptedTokenData.empcode;
-      });
+      // Sync Latest Data
+      let fetchData = () => {
+        // Initiating Rotator
+        document.getElementById("refreshIcon").classList.add("rotator");
+        syncBtn.innerHTML = "Syncing...";
+        mainSync.innerHTML = "Syncing...";
+        // Clear Previous Data
+        fetchCheckData.createFile(empcode);
+        synctStaus.innerHTML = "Clearing Previous Data";
+
+        // Fetch Routine Tasks
+        synctStaus.innerHTML = "Fetching Latest Routine Activities...";
+        fetchCheckData
+          .fetchRoutineTask(empcode)
+          .then((routineTasks) => {
+            return new Promise((resolve, reject) => {
+              synctStaus.innerHTML = "Latest Routine Activities Fetched";
+              synctStaus.innerHTML = "Saving Latest Routine Tasks";
+
+              // Save Data to File
+              saveToFile("routineTasks", routineTasks.msg).then(
+                (booleanConfirmationRoutine) => {
+                  if (booleanConfirmationRoutine) {
+                    synctStaus.innerHTML = "Routine Tasks Saved Successfully";
+                    resolve(true);
+                  } else {
+                    // Error Saving, Retry
+                    synctStaus.innerHTML = "Error Saving Routine Tasks";
+                    setTimeout(() => {
+                      synctStaus.innerHTML = "Retrying...";
+                      // Retry
+                      setTimeout(() => {
+                        fetchData();
+                      }, 2000);
+                    }, 2000);
+                  }
+                }
+              );
+            });
+          })
+          .then(() => {
+            return new Promise((resolve, reject) => {
+              synctStaus.innerHTML = "Fetching Project ID's";
+              fetchCheckData.fetchProjectIDs(empcode).then((projectIDs) => {
+                synctStaus.innerHTML = "Latest Project ID's Fetched";
+
+                // Save Data to File
+                saveToFile("project_IDs", projectIDs.msg).then(
+                  (booleanConfirmationPID) => {
+                    if (booleanConfirmationPID) {
+                      synctStaus.innerHTML = "Project IDs Saved Successfully";
+                      resolve(true);
+                    } else {
+                      // Error Saving, Retry
+                      synctStaus.innerHTML = "Error Saving Project ID's";
+                      setTimeout(() => {
+                        synctStaus.innerHTML = "Retrying...";
+                        // Retry
+                        setTimeout(() => {
+                          fetchData();
+                        }, 2000);
+                      }, 2000);
+                    }
+                  }
+                );
+              });
+            });
+          })
+          .then(() => {
+            return new Promise((resolve, reject) => {
+              synctStaus.innerHTML = "Fetching Project Tasks";
+              fetchCheckData.fetchProjectTasks(empcode).then((projectTasks) => {
+                synctStaus.innerHTML = "Latest Project Tasks Fetched";
+
+                // Save Data to File
+                saveToFile("projectTasks", projectTasks.msg).then(
+                  (booleanConfirmationPTs) => {
+                    if (booleanConfirmationPTs) {
+                      synctStaus.innerHTML = "Project Tasks Saved Successfully";
+                      resolve(true);
+                    } else {
+                      // Error Saving, Retry
+                      synctStaus.innerHTML = "Error Saving Project Tasks";
+                      setTimeout(() => {
+                        synctStaus.innerHTML = "Retrying...";
+                        // Retry
+                        setTimeout(() => {
+                          fetchData();
+                        }, 2000);
+                      }, 2000);
+                    }
+                  }
+                );
+              });
+            });
+          })
+          .then(() => {
+            return new Promise((resolve, reject) => {
+              synctStaus.innerHTML = "Fetching Project ID's from Local Storage";
+              fetchCheckData
+                .checkFileStatus()
+                .then((userData) => JSON.parse(userData.msg))
+                .then((userDataParsed) => {
+                  // Create Array of Project ID's
+                  var projectIds = userDataParsed.project_IDs;
+                  // resolve(true);
+                  let promiseArray = [];
+                  projectIds.forEach((pIds, indexs) => {
+                    console.log("Project ID's" + pIds);
+                    promiseArray.push(fetchCheckData.fetchProjectDetails(pIds));
+                  });
+                  return Promise.all(promiseArray);
+                })
+                .then((projectDetails) => {
+                  projectDetails = projectDetails.forEach((pDetails) => {
+                    return pDetails.msg[0];
+                  });
+                  console.log(projectDetails);
+                });
+            });
+          })
+          .then(() => {
+            synctStaus.innerHTML = "Synced Successfully";
+          });
+        // Fetch Project ID's
+        // Fetch Project Details
+        // Fetch Project Tasks
+        // 1. Fetch Routine Tasks
+      };
+
+      let getFileStatus = () => {
+        // Get elements
+
+        fetchCheckData.checkFileStatus().then((userData) => {
+          return new Promise(function (resolve, reject) {
+            userData = JSON.parse(userData.msg);
+            console.log(userData);
+            if (userData.err) {
+              console.log("No User Data Found");
+              mainSync.innerHTML = "Not Synced";
+              synctStaus.innerHTML = "Last Sync Status : NA";
+              resolve(false);
+            } else if (userData.err == false) {
+              // Check if data belongs to logged in person
+              if (empcode == userData.msg.empcode) {
+                // if belongs, show last sync date
+                mainSync.innerHTML = "Synced";
+                synctStaus.innerHTML = `Last Synced : ${userData.msg.syncDate}`;
+                resolve(true);
+              } else {
+                // if not, show not synced
+                console.log("UnAuthorised Users Data " + userData.msg.empcode);
+                mainSync.innerHTML = "Not Synced";
+                synctStaus.innerHTML = "Last Sync Status : NA";
+                resolve(false);
+              }
+            }
+          });
+        });
+      };
+
+      // Save to File Function
+      let saveToFile = (titleOfData, dataOfTitle) => {
+        return new Promise((resolve, reject) => {
+          // File Data Structure
+          var data = {
+            empcode: empcode,
+            syncDate: "",
+            project_IDs: [],
+            projects: [],
+            routineTasks: [],
+            projectTasks: [],
+          };
+
+          // sanitize Data
+          if (titleOfData == "project_IDs") {
+            dataOfTitle = dataOfTitle.map((dataOfTits) => {
+              return dataOfTits.projectid;
+            });
+          } else if (titleOfData == "routineTasks") {
+            dataOfTitle = dataOfTitle.map((dataOfTits) => {
+              return dataOfTits.tasktitle;
+            });
+          }
+
+          if (fs.existsSync(path)) {
+            var fileData = fs.readFile(
+              path,
+              { encoding: "utf8", flag: "r" },
+              (err, fetchedData) => {
+                fetchedData = JSON.parse(fetchedData);
+                var data2 = { [titleOfData]: dataOfTitle };
+                data = { ...data, ...fetchedData, ...data2 };
+
+                console.log(data);
+                fs.writeFile(path, JSON.stringify(data), (err2) => {
+                  if (err2) {
+                    reject(err2);
+                  } else {
+                    resolve(true);
+                  }
+                });
+              }
+            );
+          }
+        });
+      };
+
+      // call once file ststus on load
+      getFileStatus();
     </script>
   </body>
 </html>

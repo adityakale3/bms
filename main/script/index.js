@@ -48,7 +48,7 @@ checkInternet();
 setInterval(checkPing, 15000);
 
 function checkPing() {
-  ping.system.ping("google.com", function (latency, status) {
+  ping.system.ping("www.google.com", function (latency, status) {
     if (status) {
       // Host is reachable/up. Latency should have a value.
       console.log("Google is reachable (" + latency + " ms ping).");

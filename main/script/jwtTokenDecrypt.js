@@ -8,6 +8,9 @@ const validateToken = async () => {
       .then((token) => jwt.verify(token.msg, "Adityasecret"))
       .then((decryptData) => {
         resolve(decryptData);
+      })
+      .catch((err) => {
+        reject(err);
       });
   });
 };

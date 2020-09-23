@@ -81,7 +81,7 @@
       let tokenReadWrite = require("./script/readWriteToken.js");
 
       let logout = () => {
-        delToken();
+        tokenReadWrite.delToken();
         setTimeout(() => {
           window.location = "checkall.html";
         }, 1000);
