@@ -4,7 +4,7 @@
   "description": "Badve management System Desktop app",
   "main": "main.js",
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "electron": "^9.3.1",
     "jjg-ping": "^1.0.3",
     "jquery": "^3.5.1",
